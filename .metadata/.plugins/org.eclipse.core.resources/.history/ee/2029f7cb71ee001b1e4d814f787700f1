@@ -1,0 +1,12 @@
+package com.bank;
+
+public class test {
+	
+	public static void main(String[] args) {
+		hello h=new hello("ozlem");
+		h.getName();
+	}
+	
+	
+
+}

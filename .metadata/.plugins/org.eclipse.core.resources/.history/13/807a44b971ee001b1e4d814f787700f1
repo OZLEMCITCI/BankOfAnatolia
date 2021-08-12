@@ -1,0 +1,17 @@
+package com.bank;
+
+import lombok.Data;
+
+@Data
+
+public class hello {
+ private String name;
+
+public hello(String name) {
+	super();
+	this.name = name;
+}
+ 
+ 
+ 
+}
