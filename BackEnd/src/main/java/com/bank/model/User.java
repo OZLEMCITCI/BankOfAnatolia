@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -28,6 +29,7 @@ import lombok.ToString;
 @ToString
 @Entity
 @NoArgsConstructor
+//@RequiredArgsConstructor is not practical to use because you need to put more annotation to each variable like @NotBlank
 public class User implements UserDetails {
 
 	
@@ -61,7 +63,8 @@ public class User implements UserDetails {
 	private boolean enabled = true;
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	
+	//one user can have more roles cascade yaparakta eger bi user silinirse onunla ilgili butun
+	//roller silinir. 
 	@JsonIgnore // bu kismi ignore edecek json data olarak yolladiginda
 	private Set<UserRole> userRoles = new HashSet<>();
 

@@ -26,7 +26,7 @@ public class Authority implements GrantedAuthority {
 	public String getAuthority() {
 		
 		
-		return null;
+		return authority;
 		
 	}
 
