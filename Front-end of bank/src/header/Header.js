@@ -1,104 +1,164 @@
 import React from 'react'
-import { AppBar, Toolbar, Button, Typography , makeStyles} from '@material-ui/core';
+import {useState} from "react"
+import { Container, Nav,Navbar,Row,Col } from 'react-bootstrap'
+import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
-import logo from "../images/logo.png";
-import "./Header.css";
-
-const useStyles = makeStyles((theme) => ({
-
-  root: {
-    flexGrow:1
-  },
-  menuButon: {
-  
-  },
-  button: {
-    fontSize: "15px",
-    fontWeight: "bold",
-    marginLeft: "40px",
-
-    "&:hover":{
-      backgroundColor: "grey",
-      color:"blue"
-    },
-    
-  },
-  spacer: {
-    paddingLeft: "300px",
-    
-    
-  },
-  
-
- }));
+import logo from "../images/logo.png"
+import "./Header.css"
+import {Icon} from "semantic-ui-react"
 
 
 const Header = () => {
+    return (
+        <div className="nav-container">
+            
+            <Container fluid className="nav-top-fluid">
+                <Container className="nav-top">
+                    <Row>
+                        <Col className="d-none d-md-block">
+                            <TapNav />
+                        </Col>
+                    </Row>
+                </Container>
+            </Container>
 
-  function showAboutUs() {
-    const element = document.getElementById("about");
-    element.scrollIntoView({behavior:"smooth"})
-  }
+            <Container className="nav-middle ">
+                
+                
+                <Row >  
+                    <Col>
+                        <Link to="/">
+                             <img src={logo} alt="logo" className="nav-logo"/>
+                    </Link>
 
-  function showProduct() {
-    const element = document.getElementById("product");
-    element.scrollIntoView({behavior:"smooth"})
-  }
+                        
+                        
+                    </Col>
+                    <Col className="d-flex justify-content-end align-items-center">
+                    <MiddleNav/>
+                    </Col>
+                </Row>
+            </Container>
+            <Container>
+                <Row>
+                    <Col>
+                        <BottomNav/>
+                        
+                        
+                    </Col>
+                </Row>
+            </Container>
+        </div>
+    )
+};
 
-  function showPackage() {
-    const element = document.getElementById("package");
-    element.scrollIntoView({behavior:"smooth"})
-  }
 
-  function showContactUs() {
-    const element = document.getElementById("contactUs");
-    element.scrollIntoView({behavior:"smooth"})
-  }
 
-  const classes = useStyles();
+const TapNav = () => {
+
+    const history = useHistory();
+
+    const handleNavClick = (eventKey) => {
+        history.push(`/${eventKey}`)
+
+
+
+    };
 
     return (
-      <div className="">
-        
-        <AppBar position="static">
-          <Toolbar variant="dense">
-            
-            <Link to="/"><img className="header__logo" src={ logo} alt="Logo"/></Link>
-         <Typography variant="h6" color="inherit">
-          MTDBANK
-          </Typography>
-            <Button className={classes.button} color="inherit" onClick={showAboutUs}>About us</Button>
-            <Button className={classes.button}  color="inherit" onClick={showProduct}>Product</Button>
-            <Button className={classes.button}  color="inherit" onClick={showPackage}>Package</Button>
-            <Button className={classes.button} color="inherit" onClick={showContactUs}>Contact Us</Button>
-            
-        
-           
-           <div className="ml-auto"  ></div>
-            <Link to={"/login"} className="header__link">
-               <div className="header__option ">
-              <span className="header__line1 ">Hello</span>
-              <span className="header_line2">Sign In</span> 
-            </div>
-            </Link>
-            <Link to={"/register"} className="header__link">
-              <div className="header__option ">
-              <span className="header__line1">Welcome</span>
-              <span className="header_line2">Register</span> 
-            </div>
-             </Link>
-            
-            
-            
-            
-            
-              
-              
-  </Toolbar>
-</AppBar>
- 
+        <div>
+            <Nav variant="tabs" defaultActiveKey="advantage"
+                onSelect={handleNavClick}>
+                <Nav.Item>
+                    <Nav.Link  eventKey="advantage">Advantage</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link eventKey="mobile">Mobile</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link eventKey="signin">Sign In</Nav.Link>
+                </Nav.Item>
+                
+                <Nav.Item>
+                    <Nav.Link eventKey="register">Register</Nav.Link>
+                </Nav.Item>
+
+            </Nav>
         </div>
-    );
+    )
+};
+
+
+
+const MiddleNav = () => {
+    return (
+        <div>
+            <Nav className="d-flex justify-content-end mb-2">
+                
+                <Nav.Item className="me-3">
+            <Nav.Link bsPrefix="middle-navbar"  to="/login">
+              <Icon
+                name="user"
+                circular
+                size="large"
+                className="d-block mb-2"
+              ></Icon>
+              Sign In
+            </Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link bsPrefix="middle-navbar"  to="/register">
+              <Icon
+                name="unlock alternate"
+                circular
+                size="large"
+                className="d-block mb-2 ms-2"
+              ></Icon>
+              Register
+            </Nav.Link>
+          </Nav.Item>             
+            </Nav>
+            
+        </div>
+    )
 }
+
+
+
+const BottomNav = () => {
+
+    const history = useHistory();
+    const [activeKey, setactiveKey] = useState("home")
+
+    const handleItemcLICK = (eventKey) => {
+        eventKey === "home" ? history.push(`/`) : history.push(`/${eventKey}`)
+        setactiveKey(eventKey)
+    }
+    return (
+       <Navbar expand="md">
+  <Container>
+    <Navbar.Toggle aria-controls="basic-navbar-nav toggler" />
+    <Navbar.Collapse id="basic-navbar-nav navbar-collapse">
+                    <Nav className="mr-auto" activeKey={activeKey} onSelect={handleItemcLICK}>
+                        <Nav.Link className="nav-bottom-links" eventKey="home">Home</Nav.Link>
+                        <Nav.Link className="nav-bottom-links"  eventKey="about">About</Nav.Link>
+                        <Nav.Link className="nav-bottom-links"  eventKey="location">Location</Nav.Link>
+                        <Nav.Link className="nav-bottom-links"  eventKey="contact">Contact</Nav.Link>
+                        <Nav.Link className="nav-bottom-links"  eventKey="package">Package</Nav.Link>
+        
+      </Nav>
+    </Navbar.Collapse>
+  </Container>
+</Navbar>
+    )
+}
+
+
+
+
+
+
+
+
 
 export default Header

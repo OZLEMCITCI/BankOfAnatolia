@@ -1,5 +1,10 @@
-.carousel-item img {
-    object-fit: cover;
-    max-height:450px;
-    
+.carousel-caption{
+position:relative;
+top:20%;
+transform: translateX(-20%);
+transform:translateY(-30%)
+
+}
+.crausel-desc{
+
 }

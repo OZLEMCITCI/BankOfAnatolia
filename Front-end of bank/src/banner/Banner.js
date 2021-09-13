@@ -1,81 +1,57 @@
+import React from 'react'
 
-import React, { useState } from 'react';
-import {
-  Carousel,
-  CarouselItem,
-  CarouselControl,
-  CarouselIndicators,
-  CarouselCaption
-} from 'reactstrap';
-
-import banner1 from "../images/banner1.png";
-import banner2 from "../images/banner2.png";
-import banner3 from "../images/banner3.png";
+import { Carousel } from 'react-bootstrap'
+import Banner1 from "../images/carousel/1.jpg"
+import Banner2 from "../images/carousel/2.jpg"
+import Banner3 from "../images/carousel/3.jpg"
+import Banner4 from "../images/carousel/4.jpg"
 import "./Banner.css"
 
-const items = [
-  {
-    src: banner1,
-    altText: '',
-    caption: ''
-  },
-  {
-    src: banner2,
-    altText: '',
-    caption: ''
-  },
-  {
-    src: banner3,
-    altText: '',
-    caption: ''
-  }
-];
+const images = [
+    {
+      id: 1,
+      image: Banner1,
+      btnLabel: "Find out more",
+      description: "Smarter Internet Banking",
+      interval: 10000,
+    },
+    {
+      id: 2,
+      image: Banner2,
+      btnLabel: "Find out more",
+      description: "To Add value for your money",
+      interval: 5000,
+    },
+    {
+      id: 3,
+      image: Banner3,
+      btnLabel: "Find out more",
+      description: "More Secure Services",
+      interval: 15000,
+    },
+  ];
 
-const Banner = (props) => {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [animating, setAnimating] = useState(false);
-
-  const next = () => {
-    if (animating) return;
-    const nextIndex = activeIndex === items.length - 1 ? 0 : activeIndex + 1;
-    setActiveIndex(nextIndex);
-  }
-
-  const previous = () => {
-    if (animating) return;
-    const nextIndex = activeIndex === 0 ? items.length - 1 : activeIndex - 1;
-    setActiveIndex(nextIndex);
-  }
-
-  const goToIndex = (newIndex) => {
-    if (animating) return;
-    setActiveIndex(newIndex);
-  }
-
-  const slides = items.map((item) => {
+const Banner = () => {
     return (
-      <CarouselItem
-        onExiting={() => setAnimating(true)}
-        onExited={() => setAnimating(false)}
-        key={item.src}
-      >
-        <img src={item.src} alt={item.altText} />
-        <CarouselCaption captionText={item.caption} captionHeader={item.caption} />
-      </CarouselItem>
-    );
-  });
+        
+    <Carousel nextLabel=" " prevLabel=" ">
+    {images.map((item) => {
+    const { image, btnLabel, description } = item;
+    return (
+    <Carousel.Item>
+       <img className="d-block w-100" src={image} alt="slide"/>
+            <Carousel.Caption>
+         <div className="text-center">
+        <button className="btn btn-danger">{btnLabel}</button>
+        </div>
+        <p className="text-dark crausel-desc">{ description}</p>
+    </Carousel.Caption>
+  </Carousel.Item>)
+            })}
 
-  return (
-    <Carousel
-      activeIndex={activeIndex}
-      next={next}
-      previous={previous}
-    >
-      <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={goToIndex} />
-      {slides}
-      <CarouselControl direction="prev" directionText="Previous" onClickHandler={previous} />
-      <CarouselControl direction="next" directionText="Next" onClickHandler={next} />
-    </Carousel>
-  );
+</Carousel> 
+        
+    )
 }
-export default Banner;
+
+export default Banner
