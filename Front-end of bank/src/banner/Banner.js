@@ -19,14 +19,14 @@ const images = [
       id: 2,
       image: Banner2,
       btnLabel: "Find out more",
-      description: "To Add value for your money",
+      description: "Summer is here vacation loan to see new places",
       interval: 5000,
     },
     {
       id: 3,
       image: Banner3,
       btnLabel: "Find out more",
-      description: "More Secure Services",
+      description: "Summer is here vacation loan to see new places",
       interval: 15000,
     },
   ];
