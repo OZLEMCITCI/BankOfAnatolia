@@ -12,7 +12,7 @@ const images = [
       id: 1,
       image: Banner1,
       btnLabel: "Find out more",
-      description: "Smarter Internet Banking",
+      description: "Internet banking for banking transactions wherever you are",
       interval: 10000,
     },
     {
@@ -36,15 +36,16 @@ const Banner = () => {
         
     <Carousel nextLabel=" " prevLabel=" ">
     {images.map((item) => {
-    const { image, btnLabel, description } = item;
+    const { image, btnLabel, description} = item;
     return (
-    <Carousel.Item>
+    <Carousel.Item  >
        <img className="d-block w-100" src={image} alt="slide"/>
             <Carousel.Caption>
-         <div className="text-center">
-        <button className="btn btn-danger">{btnLabel}</button>
+         <div className="text-center w-50 ms-5">
+            <button className="btn btn-danger">{btnLabel}</button>
+            <p className="text-dark crausel-desc-text mt-2">{ description}</p>
         </div>
-        <p className="text-dark crausel-desc">{ description}</p>
+        
     </Carousel.Caption>
   </Carousel.Item>)
             })}

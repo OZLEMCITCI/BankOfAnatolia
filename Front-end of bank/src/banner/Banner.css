@@ -1,10 +1,23 @@
 .carousel-caption{
 position:relative;
-top:20%;
+top:30%;
 transform: translateX(-20%);
-transform:translateY(-30%)
 
 }
-.crausel-desc{
+
+.carousel-inner{
+max-height: 400px;
+}
+
+
+.carousel-indicators button{
+    border-radius: 300px;
+}
+
+
+
+.crausel-desc-text{
+font-size: calc(0.9vw + 5px);
+text-align:center ;
 
 }
