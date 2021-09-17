@@ -7,8 +7,11 @@ import {
 } from "react-router-dom";
 import Header from './header/Header';
 import Footer from './footer/Footer';
+import Footer1 from "./footer/Footer1"
+
 import Home from './home/Home';
 import About from './about/About';
+import 'font-awesome/css/font-awesome.min.css';
 
 
 
