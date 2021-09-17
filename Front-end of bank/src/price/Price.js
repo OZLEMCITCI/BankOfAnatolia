@@ -107,12 +107,12 @@ const Price = () => {
                     );
                   })}
                 </ListGroup>
-                <Card.Body className="bg-booknow">
-                  <Card.Link className="product-details d-flex align-items-center justify-content-center text-light fw-bold ">
-                    <div className="d-flex  justify-content-start align-items-center">
+                <Card.Body >
+                  <Card.Link href="#" className="product-details d-flex align-items-center justify-content-center text-light fw-bold ">
+                    <div className="d-flex  justify-content-center align-items-center ">
                       <Icon name="save" className="icon-card icon-save "></Icon>
-                      <span className="px-1 fw-bold text-center text-dark">
-                        <h3>BOOK NOW</h3>
+                      <span className="px-1 fw-bold  text-center text-dark">
+                        <h3 >BOOK NOW</h3>
                       </span>
                     </div>
                   </Card.Link>
