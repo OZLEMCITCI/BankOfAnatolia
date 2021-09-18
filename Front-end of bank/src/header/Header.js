@@ -111,7 +111,7 @@ const MiddleNav = () => {
           </Nav.Item>
           <Nav.Item>
                     <Nav.Link bsPrefix="middle-navbar" >
-            <Link to="register">
+            <Link to="/register">
               <Icon
                 name="unlock alternate"
                 circular

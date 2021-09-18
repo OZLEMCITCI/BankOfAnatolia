@@ -2,24 +2,57 @@ import React from 'react'
 import { Formik ,Field,Form} from 'formik';
 import * as Yup from 'yup';
 import { toast, ToastContainer} from "react-toastify"
-import { Container } from 'react-bootstrap';
+import { Container,Row,Col } from 'react-bootstrap';
+import { Button ,LinearProgress} from '@material-ui/core';
+import { TextField } from "formik-material-ui"
+import "./Login.css"
 
 
 const LoginForm = (probs) => {
     return (
-        <Container>
-            <Form>
-        <label htmlFor="username">User Name</label>
-         <Field name="username" type="text" />
-         
- 
-         <label htmlFor="password">Password</label>
-         <Field name="password" type="text" />
-       
-         
- 
-         <button type="submit">Submit</button>
+        <Container className="d-flex justify-content-center">
+            <fieldset>
+                <legent>LOGIN</legent>
+                
+                <Form>
+                    
+                    <Row className="d-felx justify-content-center mt-3" >
+                        <Col lg={4} md={6} xs={12} className="mt-3">
+                            <label htmlFor="username" >Username:</label>
+                <Field 
+                    name="username"
+                    type="text"
+                    component={TextField}
+                    />
+
+                        </Col>
+
+
+                        <Col lg={4} md={6} xs={12} className="mt-3">
+                            <label htmlFor="password">Password:</label>
+                    <Field
+                        
+                    name="password"
+                    type="text"
+                    component={TextField}
+                            />
+                            
+                            {probs.isSubmiting&&<LinearProgress/>}
+                            
+                        </Col>
+
+                        <Col className="mt-3">
+                     <Button
+                    lg={4} md={12} xs={12}
+                    type="submit"
+                    color="secondary"
+                    variant="contained"
+                    onClick={probs.submitForm}
+                    disable={probs.isSubmiting}>Submit</Button>
+                        </Col>
+                    </Row>           
        </Form>
+       </fieldset>
         </Container>
         
             )
@@ -38,10 +71,10 @@ const Login = () => {
                   username: Yup.string()
                  .max(15, 'Must be 15 characters or less')
                  .required('Username Required'),
-                 lastName: Yup.string()
+                 password: Yup.string()
                      .max(20, 'Must be 20 characters or less')
                      .min(8,"Must be at least 8 character")
-                 .required('Required')
+                 .required('Password Required')
          })}
 
                 onSubmit={(values, actions) => {
@@ -67,7 +100,8 @@ const Login = () => {
             >
                 
               
-        </Formik>
+            </Formik>
+            <ToastContainer/>
 
         </div>
             

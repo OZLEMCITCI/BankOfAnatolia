@@ -14,6 +14,7 @@ import About from './about/About';
 import Login from './login/Login';
 import Register from './register/Register';
 import 'font-awesome/css/font-awesome.min.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -29,10 +30,10 @@ function App() {
           <Route path="/about">
             <About />
           </Route>
-          <Route>
+          <Route path="/login">
             <Login/>
           </Route>
-          <Route>
+          <Route path="/register">
             <Register/>
           </Route>
         </Switch>
