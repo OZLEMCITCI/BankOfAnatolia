@@ -1,7 +1,30 @@
 import React from 'react'
-import { Formik } from 'formik';
+import { Formik ,Field,Form} from 'formik';
 import * as Yup from 'yup';
-import {Toast, ToastContainer} from "react-toastify"
+import { toast, ToastContainer} from "react-toastify"
+import { Container } from 'react-bootstrap';
+
+
+const LoginForm = (probs) => {
+    return (
+        <Container>
+            <Form>
+        <label htmlFor="username">User Name</label>
+         <Field name="username" type="text" />
+         
+ 
+         <label htmlFor="password">Password</label>
+         <Field name="password" type="text" />
+       
+         
+ 
+         <button type="submit">Submit</button>
+       </Form>
+        </Container>
+        
+            )
+}
+
 
 const Login = () => {
     return (
@@ -21,21 +44,29 @@ const Login = () => {
                  .required('Required')
          })}
 
-                onSubmit={(values, action) => {
-                    service.login(values).then((res) => {
-                        if (res.status === 200) {
-                            const userInfo = res.data;
-                        }     
-                    })
-                    if (userInfo && isAdmin) {
-                        history.push("/admin")
-                    } else {
-                        history.push("/user")
-                    }
+                onSubmit={(values, actions) => {
+                    // service.login(values).then((res) => {
+                    //     if (res.status === 200) {
+                    //         const userInfo = res.data;
+                    //     }     
+                    // })
+                    // if (userInfo && isAdmin) {
+                    //     history.push("/admin")
+                    // } else {
+                    //     history.push("/user")
+                    // }
+
+                    toast.success("Login Succesfull", {
+                        position: toast.POSITION.TOP_CENTER,
+                    });
+                    actions.resetForm();
+                    actions.setSubmitting(false);
+                    
                  }}
-     
+       component={LoginForm}
             >
-            
+                
+              
         </Formik>
 
         </div>
