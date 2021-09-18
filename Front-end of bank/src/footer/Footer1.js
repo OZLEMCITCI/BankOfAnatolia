@@ -112,7 +112,7 @@ const Footer1 = () => {
         className="text-center p-3"
         style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}
       >
-        © 2021 Copyright:
+        2021 © Copyright:
         <a className="text-white" href="https://htrbank.com/">
           BankofAnatolia.com
         </a>

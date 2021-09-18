@@ -11,6 +11,8 @@ import Footer1 from "./footer/Footer1"
 
 import Home from './home/Home';
 import About from './about/About';
+import Login from './login/Login';
+import Register from './register/Register';
 import 'font-awesome/css/font-awesome.min.css';
 
 
@@ -21,12 +23,17 @@ function App() {
       <Router>
         <Header/>
         <Switch>
-          <Route exact path="/" >
-            
+          <Route exact path="/" > 
             <Home />
           </Route>
           <Route path="/about">
             <About />
+          </Route>
+          <Route>
+            <Login/>
+          </Route>
+          <Route>
+            <Register/>
           </Route>
         </Switch>
         <Footer />

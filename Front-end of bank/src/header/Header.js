@@ -96,18 +96,22 @@ const MiddleNav = () => {
             <Nav className="d-flex justify-content-end mb-2">
                 
                 <Nav.Item className="me-3">
-            <Nav.Link bsPrefix="middle-navbar"  to="/login">
+                    <Nav.Link bsPrefix="middle-navbar">
+                <Link to="/login">        
               <Icon
                 name="user"
                 circular
                 size="large"
                 className="d-block mb-2"
               ></Icon>
-              Sign In
+                        Sign In
+                </Link>
+              
             </Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link bsPrefix="middle-navbar"  to="/register">
+                    <Nav.Link bsPrefix="middle-navbar" >
+            <Link to="register">
               <Icon
                 name="unlock alternate"
                 circular
@@ -115,6 +119,7 @@ const MiddleNav = () => {
                 className="d-block mb-2 ms-2"
               ></Icon>
               Register
+              </Link>
             </Nav.Link>
           </Nav.Item>             
             </Nav>
