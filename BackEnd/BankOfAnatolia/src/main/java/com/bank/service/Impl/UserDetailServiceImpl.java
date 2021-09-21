@@ -23,24 +23,27 @@ public class UserDetailServiceImpl  implements UserDetailsService, UserService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         User user=userRepo.findByUsername(username).orElseThrow(()->new UsernameNotFoundException("Username not found "+username));
-        return null;
+        return user;
     }
 
     @Override
     public UserDAO getUserDAO(User user) {
         UserDAO userDAO=new UserDAO();
-        userDAO.setUserId(userDAO.getUserId());
-        userDAO.setUsername(userDAO.getUsername());
-        userDAO.setFirstname(userDAO.getFirstname());
-        userDAO.setLastname(userDAO.getLastname());
-        userDAO.setEmail(userDAO.getEmail());
+        userDAO.setUserId(user.getUserId());
+        userDAO.setUsername(user.getUsername());
+        userDAO.setFirstname(user.getFirstname());
+        userDAO.setLastname(user.getLastname());
+        userDAO.setEmail(user.getEmail());
         Boolean isAdmin=user
                 .getUserRoles()
                 .stream()
                 .filter(role->role.getRole().getName().equals("ADMIN")).findAny().isPresent();
         userDAO.setIsAdmin(isAdmin);
 
+
         return userDAO;
+
+
     }
 
     @Override

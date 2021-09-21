@@ -1,17 +1,16 @@
 package com.bank.dao;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
-@Setter
-@Getter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDAO {
     private Long userId;
     private String username;
+
+    @JsonIgnore
     private String password;
     private String firstname;
     private String lastname;
