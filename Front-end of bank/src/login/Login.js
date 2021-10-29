@@ -6,10 +6,13 @@ import { Container,Row,Col } from 'react-bootstrap';
 import { Button ,LinearProgress} from '@material-ui/core';
 import { TextField } from "formik-material-ui"
 import "./Login.css"
-
+import { useStateValue } from '../StateProvider';
+import service from "../service/BankService";
+import { useHistory } from 'react-router';
 
 const LoginForm = (probs) => {
     return (
+
         <Container className="d-flex justify-content-center">
             <fieldset>
                 <legent>LOGIN</legent>
@@ -60,38 +63,49 @@ const LoginForm = (probs) => {
 
 
 const Login = () => {
-    return (
-    
+
+    const [{ userInfo }, dispatch] = useStateValue();
+
+    const history = useHistory();
+
+    return (  
         <div>
             
             <Formik
                 initialValues={{ userName: '', password: ''}}
-
                 validationSchema={Yup.object({
                   username: Yup.string()
                  .max(15, 'Must be 15 characters or less')
                  .required('Username Required'),
                  password: Yup.string()
                      .max(20, 'Must be 20 characters or less')
-                     .min(8,"Must be at least 8 character")
+                     .min(5,"Must be at least 5 character")
                  .required('Password Required')
          })}
 
                 onSubmit={(values, actions) => {
-                    // service.login(values).then((res) => {
-                    //     if (res.status === 200) {
-                    //         const userInfo = res.data;
-                    //     }     
-                    // })
-                    // if (userInfo && isAdmin) {
-                    //     history.push("/admin")
-                    // } else {
-                    //     history.push("/user")
-                    // }
-
-                    toast.success("Login Succesfull", {
+                    service.login(values).then((res) => {
+                        if (res.status === 200) {
+                             toast.success("Login Succesfull", {
                         position: toast.POSITION.TOP_CENTER,
                     });
+                            const userInfo = res.data;
+                            localStorage.setItem("auth", JSON.stringify({ token: userInfo.jwt }));
+
+                            dispatch({
+                                type: "LOGIN",
+                                item:userInfo
+                            })
+                        }
+                    });
+                   
+                    if (userInfo?.user?.isAdmin) {
+                  history.push("/admin");
+                } else {
+                  history.push("/user");
+                }
+
+                    
                     actions.resetForm();
                     actions.setSubmitting(false);
                     

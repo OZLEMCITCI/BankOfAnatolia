@@ -12,7 +12,6 @@ import com.bank.payload.response.Response;
 import com.bank.repository.RoleRepo;
 import com.bank.repository.UserRepo;
 import com.bank.service.UserService;
-import io.jsonwebtoken.Jwt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,17 +20,15 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.Set;
 
 @RestController
-@RequestMapping("auth")
+@RequestMapping("/auth")
+@CrossOrigin(origins="http://localhost:3000",allowedHeaders = "*")
 public class LoginController {
 
     @Autowired
@@ -84,7 +81,7 @@ public class LoginController {
                 signUpForm.getEmail());
 
         Set<UserRole> userRoles=new HashSet<>();
-        Set<String> stringRoles=signUpForm.getRoles();
+        Set<String> stringRoles=signUpForm.getRole();
 
         stringRoles.forEach(roleName->{
             Role role= rolerepo.findByName(roleName)

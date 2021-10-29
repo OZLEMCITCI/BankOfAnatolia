@@ -1,191 +1,178 @@
-import React from 'react'
-import { Formik ,Field,Form} from 'formik';
-import * as Yup from 'yup';
-import { toast, ToastContainer} from "react-toastify"
-import { Container,Row,Col } from 'react-bootstrap';
-import { Button ,LinearProgress} from '@material-ui/core';
-import { TextField } from "formik-material-ui"
-import "./Register.css"
+import React from "react";
+import { Formik, Form, Field } from "formik";
+import { Button, LinearProgress } from "@material-ui/core";
+import { TextField } from "formik-material-ui";
+import * as Yup from "yup";
+import service from "../service/BankService";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "./Register.css";
 
-const Register = () => {
+toast.configure();
+const initialValues = {
+  firstName: "",
+  lastName: "",
+  dob: "",
+  email: "",
+  username: "",
+  role: ["user"],
+  password: "",
+  confirmPassword: "",
+};
 
-
-    const initialvalues={
-          firstName: "",
-          lastName: "",
-          dob: "",
-          email: "",
-          username: "",
-          role: ["USER"],
-          password: "",
-          confirmPassword: "",
-        }
-
-    
-const RegisterSchema = Yup.object().shape({
-  firstName: Yup.string().required("Firstname required"),
-  lastName: Yup.string().required("Lastname required"),
-  dob: Yup.string().required("Date required"),
-  password: Yup.string().required("Password required"),
-  username: Yup.string().required("User required"),
+const validationSchema = Yup.object().shape({
+  firstName: Yup.string().required("Please provide First Name"),
+  lastName: Yup.string().required("Please provide Last Name"),
+  dob: Yup.string().required("Please provide your Date of Birth"),
+  email: Yup.string()
+    .email("Please provide Valid Email Address")
+    .required("Please provide the Email Address"),
+  username: Yup.string().required("Please provide User Name"),
+  password: Yup.string().required("Please provide the password"),
   confirmPassword: Yup.string().oneOf(
     [Yup.ref("password"), null],
-    "Password must match"
+    "Password should match"
   ),
-  email: Yup.string().email("Invalid email").required("Email required"),
 });
 
-    const RegistrationForm = (props) => (
-  <Container className="d-flex justify-content-center">
+const submitForm = (values, action) => {
+  service
+    .register(values)
+    .then((response) => {
+      if (response.status === 200 && response.data.success) {
+        toast.success(response.data.message, {
+          position: toast.POSITION.TOP_CENTER,
+        });
+        action.resetForm();
+      } else {
+        toast.error(response.data.message, {
+          position: toast.POSITION.TOP_CENTER,
+        });
+      }
+    })
+    .catch((e) => {
+      console.log("Error on submitting form ", e);
+    });
+  action.setSubmitting(false);
+};
+const RegistrationForm = (props) => (
+  <div className="container">
     <fieldset>
       <legend>Register</legend>
       <Form>
-        <Row className="justify-content-center">
-          <Col sm={12} md={6} className="text-center p-3">
+        <div className="row justify-content-start">
+          <div className="col-3 text-center p-3">
             <Field
               component={TextField}
               name="firstName"
-              type="text"
               label="First Name"
+              type="text"
             />
-          </Col>
-          <Col sm={12} md={6} className="text-center p-3">
+          </div>
+          <div className="col-3 text-center p-3">
             <Field
               component={TextField}
               name="lastName"
-              type="text"
               label="Last Name"
+              type="text"
             />
-          </Col>
-        </Row>
-
-        <Row className="justify-content-center">
-          <Col sm={12} md={6} className="text-center p-3">
+          </div>
+        </div>
+        <div className="row justify-content-start">
+          <div className="col-3 text-center p-3">
             <Field
               component={TextField}
               name="dob"
+              label="Date of Birth"
               type="date"
-              label="Date Of Birth"
-              InputLabelProps={{
-                shrink: true,
-              }}
+              InputLabelProps={{ shrink: true }}
             />
-          </Col>
-          <Col sm={12} md={6} className="text-center p-3">
+          </div>
+          <div className="col-3 text-center p-3">
             <Field
               component={TextField}
               name="email"
-              type="email"
               label="Email"
+              type="email"
             />
-          </Col>
-        </Row>
-
-        <Row className="justify-content-center">
-          <Col sm={12} md={6} className="text-center p-3">
+          </div>
+        </div>
+        <div className="row justify-content-start">
+          <div className="col-3 text-center p-3">
             <Field
               component={TextField}
               name="username"
-              type="text"
               label="User Name"
+              type="text"
             />
-          </Col>
-          <Col sm={12} md={6} className="text-center p-3">
-            <Row id="checkbox-group" className="justify-content-center">
+          </div>
+          <div className="col-3 text-center p-3">
+            <div className="row text-center pl-5" id="checkbox-group">
               Role
-            </Row>
-            <Row>
-              <Col>
-                <label className="p3">
-                  <Field type="checkbox" name="role" value="USER" />
+            </div>
+            <div className="row">
+              <div className="col-2">
+                <label>
+                  <Field type="checkbox" name="role" value="user" />
                   User
                 </label>
-                <label className="p3 ms-4">
-                  <Field type="checkbox" name="role" value="ADMIN" />
+              </div>
+              <div className="col-2">
+                <label>
+                  <Field type="checkbox" name="role" value="admin" />
                   Admin
                 </label>
-              </Col>
-            </Row>
-          </Col>
-        </Row>
-
-        <Row className="justify-content-center">
-          <Col sm={12} md={6} className="text-center p-3">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="row justify-content-start">
+          <div className="col-3 text-center p-3">
             <Field
               component={TextField}
-              type="password"
-              label="Password"
               name="password"
+              label="Password"
+              type="password"
             />
-          </Col>
-          <Col sm={12} md={6} className="text-center p-3">
+          </div>
+          <div className="col-3 text-center p-3">
             <Field
               component={TextField}
-              type="password"
-              label="Confirm Password"
               name="confirmPassword"
+              label="Confirm Password"
+              type="password"
             />
-          </Col>
-        </Row>
-
-        <Row className="justify-content-center">
-          <Col className="text-center p-3">
+          </div>
+        </div>
+        <div className="row">{props.isSubmitting && <LinearProgress />}</div>
+        <div className="row">
+          <div className="col-6 p-3 text-center">
             <Button
               variant="contained"
-              color="secondary"
+              color="primary"
               disabled={props.isSubmitting}
               onClick={props.submitForm}
-              className="register-btn"
+              className="register__btn"
             >
               Submit
             </Button>
-          </Col>
-        </Row>
-      </Form>
-      {props.isSubmitting && <LinearProgress />}
-    </fieldset>
-  </Container>
-);
-        
-        
-    
-
-    const submitForm = (values, actions) => {
-        // service.register(values).then((res) => {
-        //    if (res.status === 200) {
-        //         toast.success("Register Succesfull", {
-        //             position: toast.POSITION.TOP_CENTER,
-        //         });
-        //         actions.resetForm();
-        //     } else {
-        //         toast.error(response.data.message, {
-        //             position: toast.POSITION.TOP_CENTER,
-        //         });
-                    
-        //         actions.setSubmitting(false);
-                    
-        //     } 
-    
-        // })
-        
-    }
-    
-
-    return (
-        <div>
-            
-            <Formik
-                initialValues={initialvalues}
-                validationSchema={RegisterSchema}
-                onSubmit={submitForm}
-                component={RegistrationForm}>
-                
-            </Formik>
-            <ToastContainer/>
-            
+          </div>
         </div>
-    )
-}
+      </Form>
+    </fieldset>
+  </div>
+);
+const Register = () => {
+  return (
+    <div>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={submitForm}
+        component={RegistrationForm}
+      ></Formik>
+    </div>
+  );
+};
 
-
-export default Register
+export default Register;

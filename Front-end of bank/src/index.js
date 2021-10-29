@@ -4,11 +4,21 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'semantic-ui-css/semantic.min.css'
+import 'semantic-ui-css/semantic.min.css';
+import { StateProvider } from "./StateProvider";
+import {reducer,initialState} from "./reducer"
+
+
+
+
+
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <React.Fragment>
+    <StateProvider initialState={initialState} reducer={reducer}>
+      <App/>
+  </StateProvider>
+
+  </React.Fragment>,
   document.getElementById('root')
 );
 

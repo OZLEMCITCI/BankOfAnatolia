@@ -1,5 +1,6 @@
 package com.bank.payload.request;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,6 +11,7 @@ import java.util.Set;
 
 @Getter
 @Setter
+@Data
 public class SignUpForm {
 
     @NotBlank
@@ -25,7 +27,7 @@ public class SignUpForm {
     private String username;
 
     @NotBlank
-    @Size(min=6, max=50)
+    @Size(min=4, max=50)
     private String password;
 
     @NotBlank
@@ -33,7 +35,9 @@ public class SignUpForm {
     @Size(max=50)
     private String email;
 
-    private Set<String> roles;
+
+
+    private Set<String> role;
 
 
 

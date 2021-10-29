@@ -11,6 +11,7 @@ import javax.persistence.*;
 import javax.persistence.criteria.Fetch;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -40,6 +41,12 @@ private static final long serialVersionUID=1L;
         this.lastname = lastname;
         this.email = email;
     }
+
+    @OneToOne
+    private Account account;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private List<Recipient> recipients;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
